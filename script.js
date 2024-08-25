@@ -6,6 +6,14 @@ const authorText = document.getElementById("author");
 const twitterBtn = document.getElementById("twitter");
 const newQuoteBtn = document.getElementById("new-quote");
 const loader = document.getElementById("loader");
+const about = document.getElementById("about");
+
+twitterBtn.addEventListener("click", tweetQuote);
+newQuoteBtn.addEventListener("click", newQuote);
+about.addEventListener("click", (event) => {
+  window.open("https://www.linkedin.com/in/amirhosseinrahmanzadeh/", "_blank");
+});
+
 function newQuote() {
   handleLoading(true);
   const quote = localQuotes[Math.floor(Math.random() * localQuotes.length)];
@@ -14,9 +22,9 @@ function newQuote() {
   } else {
     quoteText.classList.remove("long-text");
   }
+  handleLoading(false);
   authorText.textContent = quote.author ?? "Unkown";
   quoteText.textContent = quote.text;
-  handleLoading(false);
 }
 function tweetQuote() {
   const tweetUrl = `https://twitter.com/intent/tweet?text=${quoteText.textContent} -${authorText.textContent}`;
@@ -27,7 +35,5 @@ function handleLoading(isLoading) {
   quoteContainer.hidden = isLoading;
   loader.hidden = !isLoading;
 }
-twitterBtn.addEventListener("click", tweetQuote);
-newQuoteBtn.addEventListener("click", newQuote);
 
 newQuote();
